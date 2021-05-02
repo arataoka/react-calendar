@@ -7,12 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TaskListType } from '../../type';
 
 const Modal: React.FC<TaskListType> = ({ tasks }) => {
+  console.log('modal');
   const dispatch = useDispatch();
   const date = useSelector(selectDate);
 
   return (
     <>
-      <StyledOverlay onClick={() => dispatch(closeModal())}></StyledOverlay>
+      <StyledOverlay onClick={() => dispatch(closeModal())} />
       <StyledModal>
         <p>{date}</p>
         <ModalTask date={date} tasks={tasks} />
@@ -22,7 +23,7 @@ const Modal: React.FC<TaskListType> = ({ tasks }) => {
   );
 };
 
-export default Modal;
+export default React.memo(Modal);
 
 const StyledOverlay = styled.div`
   background-color: black;

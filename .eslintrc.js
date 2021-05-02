@@ -34,7 +34,7 @@ module.exports = {
         quotes: ['error', 'single'],
         'react/prop-types': [0],
         'react-hooks/rules-of-hooks': 'error',
-        '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/no-unused-vars': 'warn',
         'no-unused-var': 0,
         'no-undef': 'off',
         'no-use-before-define': ['off'],

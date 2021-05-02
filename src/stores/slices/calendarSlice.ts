@@ -4,8 +4,17 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const apiUrl = 'https://holidays-jp.github.io/api/v1/date.json';
+// initialize
+console.log('initialize');
+const today = new Date();
+const thisYear = today.getFullYear();
+const thisMonth = today.getMonth() + 1;
+const initialState: CalendarType = {
+  displayYear: thisYear,
+  displayMonth: thisMonth,
+  holidays: null,
+};
 
-//slice名/メソッド名
 export const fetchHolidays = createAsyncThunk(
   'calendar/getHolidays',
   async () => {
@@ -13,19 +22,6 @@ export const fetchHolidays = createAsyncThunk(
     return res.data;
   }
 );
-
-// initialize
-console.log('initialize');
-const today = new Date();
-const thisYear = today.getFullYear();
-const thisMonth = today.getMonth() + 1;
-
-const initialState: CalendarType = {
-  displayYear: thisYear,
-  displayMonth: thisMonth,
-  holidays: null,
-};
-
 export const calendarSlice = createSlice({
   name: 'calendar',
   initialState,
@@ -39,6 +35,7 @@ export const calendarSlice = createSlice({
     builder.addCase(
       fetchHolidays.fulfilled,
       (state, action: PayloadAction<HolidayType>) => {
+        console.log('fetchHolidays');
         return {
           ...state,
           holidays: action.payload,

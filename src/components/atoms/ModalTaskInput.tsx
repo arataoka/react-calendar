@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../../stores/slices/taskSlice';
 
-interface ModalTaskInputProp {
+interface TaskInputPropType {
   date: string;
 }
 
-const ModalTaskInput: React.FC<ModalTaskInputProp> = ({ date }) => {
+const ModalTaskInput: React.FC<TaskInputPropType> = ({ date }) => {
+  console.log('modaltaskinput');
   const dispatch = useDispatch();
   const [text, setText] = useState('');
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!(e.keyCode === 13)) return;
+    if (!(e.keyCode === 13) || text === '') return;
     dispatch(addTask({ text, date }));
     setText('');
   };
@@ -29,4 +30,4 @@ const ModalTaskInput: React.FC<ModalTaskInputProp> = ({ date }) => {
   );
 };
 
-export default ModalTaskInput;
+export default React.memo(ModalTaskInput);

@@ -11,28 +11,24 @@ import {
   selectYear,
 } from '../../stores/slices/calendarSlice';
 import { WEEKDAYS } from '../../utils/constant';
-import { generateDates } from '../../utils/functions';
 import { useDispatch } from 'react-redux';
 import { TaskListType } from '../../type';
+import { getCalendarInfo } from '../../hooks/getCalendarInfo';
+import { fetchTask } from '../../stores/slices/taskSlice';
 
 const Calendar: React.FC<TaskListType> = ({ tasks }) => {
+  console.log('calendar');
   const dispatch = useDispatch();
   const year = useSelector(selectYear);
   const month = useSelector(selectMonth);
   const holidays = useSelector(selectHolidays);
-  const firstWeekDayIndex = new Date(year, month - 1, 1).getDay();
-  const thisMonthDays = new Date(year, month, 0).getDate();
-  const lastMonthDays = new Date(year, month - 1, 0).getDate();
-  const dates = generateDates({
-    year,
-    month,
-    firstWeekDayIndex,
-    thisMonthDays,
-    lastMonthDays,
-  });
+  const { dates } = getCalendarInfo(year, month);
+  const filteredTasks = (date: string) => tasks.filter((task) => task[date]);
 
   useLayoutEffect(() => {
+    console.log('fetch');
     dispatch(fetchHolidays());
+    dispatch(fetchTask());
   }, []);
 
   return (
@@ -44,12 +40,12 @@ const Calendar: React.FC<TaskListType> = ({ tasks }) => {
         ))}
       </StyledGridWrapper>
       <StyledGridWrapper>
-        {dates.map((date, index) => (
+        {dates.map((date) => (
           <CalendarCell
-            key={index}
+            key={date}
             date={date}
-            holidays={holidays}
-            tasks={tasks}
+            holiday={holidays && holidays[date]}
+            filteredTasks={filteredTasks(date)}
           />
         ))}
       </StyledGridWrapper>
@@ -57,7 +53,7 @@ const Calendar: React.FC<TaskListType> = ({ tasks }) => {
   );
 };
 
-export default Calendar;
+export default React.memo(Calendar);
 
 const StyledGridWrapper = styled.ul`
   display: grid;

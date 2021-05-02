@@ -15,11 +15,9 @@ export const modalSlice = createSlice({
       state.isOpen = true;
     },
     closeModal(state) {
-      console.log(state);
       state.isOpen = false;
     },
     setDate(state, action) {
-      console.log(action.payload.date);
       state.date = action.payload.date;
     },
   },

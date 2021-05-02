@@ -1,12 +1,12 @@
 import React from 'react';
 import { WEEKDAYS } from '../../utils/constant';
 
-interface WeekdayType {
+interface WeekdayPropType {
   weekday: typeof WEEKDAYS[number];
   key: typeof WEEKDAYS[number];
 }
 
-const CalendarWeekday: React.FC<WeekdayType> = ({ weekday }) => {
+const CalendarWeekday: React.FC<WeekdayPropType> = ({ weekday }) => {
   console.log('calendarWeekday');
   return <div>{weekday}</div>;
 };
