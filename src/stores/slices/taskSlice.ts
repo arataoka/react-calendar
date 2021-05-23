@@ -1,10 +1,10 @@
-import { TaskSliceType, TaskType } from '../../type';
+import { TaskListType, TaskType } from '../../type';
 import { RootState } from '../index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { generateId } from '../../utils/functions';
 import { LOCAL_STORAGE_KEY } from '../../utils/constant';
 
-const initialState: TaskSliceType = {
+const initialState: TaskListType = {
   tasks: [],
 };
 

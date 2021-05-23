@@ -1,5 +1,6 @@
 import React from 'react';
 import { WEEKDAYS } from '../../utils/constant';
+import styled from 'styled-components';
 
 interface WeekdayPropType {
   weekday: typeof WEEKDAYS[number];
@@ -8,7 +9,12 @@ interface WeekdayPropType {
 
 const CalendarWeekday: React.FC<WeekdayPropType> = ({ weekday }) => {
   console.log('calendarWeekday');
-  return <div>{weekday}</div>;
+  return <WeekDay>{weekday}</WeekDay>;
 };
 
 export default React.memo(CalendarWeekday);
+
+const WeekDay = styled.div`
+  text-align: center;
+  color: #333;
+`;

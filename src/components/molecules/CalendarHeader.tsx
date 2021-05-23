@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { setCalendar } from '../../stores/slices/calendarSlice';
-import { useDispatch } from 'react-redux';
-import { adjustMonth } from '../../utils/functions';
-import { JANUARY, DECEMBER } from '../../utils/constant';
+import { useMonth } from '../../hooks/useMonth';
 
 interface CalendarHeaderType {
   year: number;
@@ -11,35 +8,37 @@ interface CalendarHeaderType {
 }
 
 const CalendarHeader: React.FC<CalendarHeaderType> = ({ year, month }) => {
-  const dispatch = useDispatch();
-  const incrementMonth = () => {
-    // 12月から1月になる場合を考慮
-    const payload =
-      adjustMonth(month + 1) === JANUARY
-        ? { year: year + 1, month: JANUARY }
-        : { year, month: month + 1 };
-    dispatch(setCalendar(payload));
-  };
-  const decrementMonth = () => {
-    // 1月から12月になる場合を考慮
-    const payload =
-      adjustMonth(month - 1) === DECEMBER
-        ? { year: year - 1, month: DECEMBER }
-        : { year, month: month - 1 };
-    dispatch(setCalendar(payload));
-  };
-
+  console.log('calendarHeader');
+  const { incrementMonth, decrementMonth } = useMonth(year, month);
   return (
     <StyledCalendarHeader>
-      {year}年 {month}月<button onClick={incrementMonth}>+</button>
-      <button onClick={decrementMonth}>-</button>
+      <div>
+        {year}年 {month}月
+      </div>
+      <div>
+        <button onClick={decrementMonth}>前の月へ</button>
+        <button onClick={incrementMonth}>次の月へ</button>
+      </div>
     </StyledCalendarHeader>
   );
 };
 
-export default CalendarHeader;
+export default React.memo(CalendarHeader);
 
 const StyledCalendarHeader = styled.nav`
   background-color: black;
   color: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  align-items: center;
+
+  button {
+    color: white;
+    border: white 1px solid;
+    background-color: transparent;
+    &:first-child {
+      margin-right: 20px;
+    }
+  }
 `;

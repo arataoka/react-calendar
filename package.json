@@ -34,7 +34,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "$(npm bin)/eslint --fix -c ./.eslintrc.js --no-error-on-unmatched-pattern 'src/**/*.{js,ts,tsx}' && prettier --write \"./**/*.tsx\" && stylelint --fix src/**/*.scss",
+    "lint": "$(npm bin)/eslint --fix -c ./.eslintrc.js --no-error-on-unmatched-pattern 'src/**/*.{js,ts,tsx}' && prettier --write \"./**/*.tsx\"",
     "lint:js": "$(npm bin)/eslint --fix -c ./.eslintrc.js --no-error-on-unmatched-pattern 'src/**/*.{js,ts,tsx}'",
     "format": "prettier --write --no-error-on-unmatched-pattern 'src/**/*.{js,ts,tsx}'",
     "lint:css": "stylelint --fix src/**/*.scss",
