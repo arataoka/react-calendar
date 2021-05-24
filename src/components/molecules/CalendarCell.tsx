@@ -47,7 +47,7 @@ const CalendarCell: React.FC<CalendarCellPropType> = ({
     if (holiday) setCellClass('isHoliday');
     if (cellMonth && toTwoDigit(month) !== cellMonth[0])
       setCellClass('isOutMonth');
-  }, [month]);
+  }, [month,holiday]);
 
   return (
     <StyledCell onClick={handleOpenModal} className={cellClass}>
